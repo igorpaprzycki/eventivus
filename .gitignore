@@ -1,0 +1,93 @@
+# === BACKEND (Java + Spring Boot) ===
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+gradle-app.setting
+gradle-app.setting.bak
+
+# Logs
+*.log
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VSCode / Cursor
+.vscode/
+.history/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# === FRONTEND (React + TypeScript) ===
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+
+# Build output
+dist/
+build/
+.cache/
+.next/
+out/
+
+# Test coverage
+coverage/
+
+# dotenv
+.env
+.env.*.local
+
+# === DOCKER ===
+
+# Docker files
+**/docker-compose.override.yml
+**/.docker/
+**/*.local.yml
+
+# === KEYCLOAK / INFRA CONFIG (if applicable) ===
+
+keycloak-export.json
+keycloak-config/
+
+# === SYSTEM FILES ===
+
+*.swp
+*.bak
+*.tmp
+
+# === OTHERS ===
+
+# Optional local dev tools
+*.db
+*.sqlite
+*.h2.db
+
+# Mac zips and Apple files
+__MACOSX/
+*.zip~
+
+# JetBrains Rider or other JetBrains IDEs
+.idea/
+*.sublime-workspace
+*.sublime-project
