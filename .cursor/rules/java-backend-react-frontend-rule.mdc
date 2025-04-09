@@ -1,0 +1,114 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+## 👤 User Profile
+- **Role**: Full-Stack Java & React Developer  
+- **Backend**: Java 21, Spring Boot 3.4.4, Maven  
+- **Frontend**: React (with TypeScript), Redux  
+- **Database**: PostgreSQL  
+- **Language**: Always respond in English  
+
+---
+
+## 🔁 Git Rules
+- Use `git pull --rebase` to maintain a linear history.
+- No merge commits in feature branches – squash & rebase before merging to `main`.
+- Commit messages must be clear and scoped (e.g., `feat(auth): add Google SSO`).
+- Branch naming:  
+  - `backend/feature/...`, `frontend/feature/...`, `bugfix/...`, `refactor/...`
+- Always use `.gitignore` to exclude IDE and build files (`/target`, `/node_modules`, etc.)
+
+---
+
+## 🧩 Cursor IDE Plugins (Recommended)
+
+### Java / Spring Boot
+- Red Hat Java Support  
+- Spring Boot Extension Pack  
+- Maven for Java  
+- Debugger for Java  
+- Java Test Runner  
+- Checkstyle for Java  
+- Lombok Support  
+- SonarLint  
+- GitLens  
+
+### React / TypeScript
+- ESLint  
+- Prettier  
+- React Native Tools (also works for web)  
+- TypeScript Hero  
+- Tailwind CSS IntelliSense (if used)  
+- Jest  
+- GitLens  
+
+---
+
+## ⚙️ Backend Rules
+
+### 🧱 Framework & Stack
+- Java 21 with Spring Boot 3.4.4
+- Build system: Maven
+- PostgreSQL as the primary database
+
+### 🔐 Security
+- Login via username/password & SSO (Google, Microsoft, Facebook)
+- 2FA via email for admins
+- Spring Security with JWT
+- Identity management via Keycloak
+
+### 🧪 Testing
+- JUnit 6 (Jupiter)
+- Mockito for mocking dependencies
+- Prefer test slicing (`@WebMvcTest`, `@DataJpaTest`) over `@SpringBootTest`
+
+### 🧰 DevOps & Tools
+- Docker + Docker Compose for local and CI environments
+- Mailgun for transactional emails
+- REST API with secured endpoints
+- Swagger (OpenAPI) documentation
+
+---
+
+## 🎨 Frontend Rules
+
+### ⚙️ Framework & Stack
+- React with TypeScript
+- Redux for state management (Toolkit recommended)
+- Functional components and hooks only – no class components
+- Code split for better performance using dynamic imports
+
+### 🎯 Code Style & Structure
+- Component-based folder structure:  
+  - `/components`, `/features`, `/hooks`, `/store`, `/pages`, `/api`
+- Keep files short and focused – 1 component per file
+- All components must be typed properly with TypeScript interfaces
+- Use `.tsx` for components, `.ts` for utilities/types
+
+### 🧪 Testing
+- Use **Jest** and **React Testing Library**
+- Test coverage for logic-heavy components and Redux slices
+- Avoid snapshot tests unless absolutely necessary
+
+### 🧹 Code Quality
+- Use **ESLint** + **Prettier** for linting and formatting
+- Enforce code formatting on commit via Husky + lint-staged
+- Avoid magic numbers and hardcoded strings – use constants and enums
+
+### 🌐 API Communication
+- Use `fetch` or `axios` for HTTP requests
+- Create a reusable `apiClient.ts` wrapper with interceptors (for JWT)
+- All API calls and responses must be typed with `AxiosResponse<T>` or equivalent
+
+---
+
+## 📦 Deployment & Build
+- Backend and frontend will be containerized using Docker
+- Ensure `.dockerignore` and `.env` files are present and secured
+- Frontend should be served statically (e.g., via NGINX) or integrated into the Spring Boot app if needed
+
+---
+
