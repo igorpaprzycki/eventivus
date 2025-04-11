@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Calendar, Clock, MapPin, Trash2, Users } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users } from 'lucide-react';
 import { format } from 'date-fns';
 import type { Database } from '../../lib/types';
 
@@ -11,26 +11,30 @@ interface EventListProps {
 }
 
 export function EventList({ onEventSelect }: EventListProps) {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
+  const [displayedEvents, setDisplayedEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchEvents();
+    fetchUserAndEvents();
   }, []);
 
-  const fetchEvents = async () => {
+  const fetchUserAndEvents = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (user) {
+        setCurrentUserId(user.id);
+      }
 
       const { data: events, error } = await supabase
         .from('events')
         .select('*')
-        .eq('created_by', user.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setEvents(events || []);
+      setAllEvents(events || []);
+      setDisplayedEvents(events || []);
     } catch (error) {
       console.error('Error fetching events:', error);
     } finally {
@@ -46,10 +50,20 @@ export function EventList({ onEventSelect }: EventListProps) {
         .eq('id', eventId);
 
       if (error) throw error;
-      setEvents(events.filter(event => event.id !== eventId));
+      const updatedEvents = allEvents.filter(event => event.id !== eventId);
+      setAllEvents(updatedEvents);
+      setDisplayedEvents(updatedEvents);
     } catch (error) {
       console.error('Error deleting event:', error);
     }
+  };
+
+  const showAllEvents = () => {
+    setDisplayedEvents(allEvents);
+  };
+
+  const showMyEvents = () => {
+    setDisplayedEvents(allEvents.filter(event => event.created_by === currentUserId));
   };
 
   if (loading) {
@@ -60,7 +74,7 @@ export function EventList({ onEventSelect }: EventListProps) {
     );
   }
 
-  if (events.length === 0) {
+  if (allEvents.length === 0) {
     return (
       <div className="text-center py-12">
         <Calendar className="mx-auto h-12 w-12 text-gray-400" />
@@ -72,9 +86,26 @@ export function EventList({ onEventSelect }: EventListProps) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Twoje wydarzenia</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-900">Wydarzenia</h2>
+        <div className="flex gap-4">
+          <button
+            onClick={showAllEvents}
+            className="text-sm text-indigo-600 hover:text-indigo-500"
+          >
+            Wszystkie
+          </button>
+          <button
+            onClick={showMyEvents}
+            className="text-sm text-indigo-600 hover:text-indigo-500"
+          >
+            Moje wydarzenia
+          </button>
+        </div>
+      </div>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {events.map(event => (
+        {displayedEvents.map(event => (
           <div
             key={event.id}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
@@ -83,15 +114,29 @@ export function EventList({ onEventSelect }: EventListProps) {
             <div className="p-6">
               <div className="flex justify-between items-start">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{event.title}</h3>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteEvent(event.id);
-                  }}
-                  className="text-gray-400 hover:text-red-500 transition-colors"
-                >
-                  <Trash2 className="h-5 w-5" />
-                </button>
+                {event.created_by === currentUserId && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteEvent(event.id);
+                    }}
+                    className="text-gray-400 hover:text-red-500 transition-colors"
+                  >
+                    <svg
+                      className="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
               
               {event.description && (
@@ -114,9 +159,7 @@ export function EventList({ onEventSelect }: EventListProps) {
                 <div className="flex items-center text-gray-500">
                   <Users className="h-4 w-4 mr-2" />
                   <span className="text-sm">
-                    {event.max_participants 
-                      ? `Limit: ${event.max_participants} uczestników`
-                      : 'Bez limitu uczestników'}
+                    {event.created_by === currentUserId ? 'Twoje wydarzenie' : 'Wydarzenie publiczne'}
                   </span>
                 </div>
               </div>
@@ -124,15 +167,9 @@ export function EventList({ onEventSelect }: EventListProps) {
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <span className={`
                   inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                  ${event.status === 'ACTIVE' ? 'bg-green-100 text-green-800' : ''}
-                  ${event.status === 'DRAFT' ? 'bg-gray-100 text-gray-800' : ''}
-                  ${event.status === 'COMPLETED' ? 'bg-blue-100 text-blue-800' : ''}
-                  ${event.status === 'CANCELLED' ? 'bg-red-100 text-red-800' : ''}
+                  ${event.planning_mode ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'}
                 `}>
-                  {event.status}
-                </span>
-                <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
-                  {event.type}
+                  {event.planning_mode ? 'W planowaniu' : 'Zaplanowane'}
                 </span>
               </div>
             </div>

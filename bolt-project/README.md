@@ -99,9 +99,9 @@ src/
 
 ### Time Preferences
 - Participants can mark their availability as:
-    - Available
-    - Maybe
-    - Unavailable
+  - Available
+  - Maybe
+  - Unavailable
 - Real-time updates of preferences
 
 ### Smart Recommendations
