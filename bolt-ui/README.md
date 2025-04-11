@@ -64,17 +64,17 @@ The application uses the following main tables:
 To create a production build:
 
 ```bash
-npm run build
+npm run bolt-build
 ```
 
 The build artifacts will be stored in the `dist/` directory.
 
 ## Development Commands
 
-- `npm run dev` - Start development server
-- `npm run build` - Create production build
-- `npm run preview` - Preview production build locally
-- `npm run lint` - Run ESLint for code quality
+- `npm run bolt-dev` - Start development server
+- `npm run bolt-build` - Create production build
+- `npm run bolt-preview` - Preview production build locally
+- `npm run bolt-lint` - Run ESLint for code quality
 
 ## Project Structure
 
