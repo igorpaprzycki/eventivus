@@ -1,0 +1,14 @@
+{
+  "name": "users-igypap-code-base-eventivus-ui",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "ui-dev": "astro dev",
+    "ui-build": "astro build",
+    "ui-preview": "astro preview",
+    "ui-astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.6.1"
+  }
+}
