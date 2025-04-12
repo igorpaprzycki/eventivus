@@ -8,6 +8,7 @@ Frontend - Astro z React dla komponentów interaktywnych:
 Backend - JAVA 21 z frameworkiem Spring Boot
 - System budowania: Maven.
 - Baza Danych: PostgreSQL.
+- Migracja bazy danych: Flyway
 - Testowanie: JUnit 6 (Jupiter) i Mockito.
 - Konteneryzacja: Docker, Docker Compose.
 - API: REST API
