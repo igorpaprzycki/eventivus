@@ -1,0 +1,108 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# AI Rules for EVENTIVUS
+
+EVENTIVUS is a web application that is designed to simplify and accelerate the process of planning and organizing corporate events. By providing a simple way for employees to propose and vote on potential dates, it streamlines communication and minimizes the need for manual coordination. The application offers two modes for creating events: 'Registration' (registration for a single confirmed date) and 'Planning' (planning with multiple proposed dates)."
+
+## Tech Stack
+
+### Frontend
+- Astro 5
+- TypeScript 5
+- React 19
+- Tailwind 4
+- Shadcn/ui
+
+### Backend
+- JAVA 21
+- Spring Boot 3.4.4
+- Spring Boot Data JDBC
+- Lombok
+- Junit 5
+- Spring with Mockito
+- Postgres
+- Flyway for database migration
+
+## Project Structure
+
+When introducing changes to the project, always follow the directory structure below:
+
+### Frontend
+- `./ui/src` - source code
+- `./ui/src/layouts` - Astro layouts
+- `./ui/src/pages` - Astro pages
+- `./ui/src/pages/api` - API endpoints
+- `./ui/src/middleware/index.ts` - Astro middleware
+- `./ui/src/types.ts` - Shared types for frontend (DTOs)
+- `./ui/src/components` - Client-side components written in Astro (static) and React (dynamic)
+- `./ui/src/components/ui` - Client-side components from Shadcn/ui
+- `./ui/src/assets` - static internal assets
+- `./ui/public` - public assets
+
+### Backend
+- `./service/src/main/java/com/igypap/eventivus/service` - source code
+- `./service/src/main/resources` - resources root
+- `./service/src/main/resources/db/migration` - flyway database migration scripts
+- `./service/src/test/java/com/igypap/eventivus/service` - test source code
+- `./service/src/test/resources` - test resources root
+- `./service/src/main/java/com/igypap/eventivus/service/config` - Contains configuration classes (e.g., Spring configurations, bean definitions, security, properties binding).
+- `./service/src/main/java/com/igypap/eventivus/service/controller` - Rest controllers and API endpoints. Keep these thin by delegating to service layers.
+- `./service/src/main/java/com/igypap/eventivus/service/dto` - Data Transfer Objects (DTOs) used to shuttle data between layers (especially between controllers and services).
+- `./service/src/main/java/com/igypap/eventivus/service/exception` - Custom exception classes and exception handlers (using @ControllerAdvice).
+- `./service/src/main/java/com/igypap/eventivus/service/domain` - Domain entities that represent your business models (e.g., Event, Location, Participant). Using the term “domain” can highlight your focus on the business logic.
+- `./service/src/main/java/com/igypap/eventivus/service/repository` - Persistence layer using Spring Data JDBC. Keep repository interfaces here.
+- `./service/src/main/java/com/igypap/eventivus/service/service` - Business logic encapsulated in service classes. Apply services that are stateless and focused on the core functionality.
+- `./service/src/main/java/com/igypap/eventivus/service/util` - Any utilities or shared helper classes (only if necessary, as you want to avoid dumping miscellaneous code here).
+- `./service/src/main/java/com/igypap/eventivus/service/security` - If you have specific security rules, tokens, or authorization-related components, consider isolating them here.
+
+
+When modifying the directory structure, always update this section.
+NEVER update contents of `bolt-ui` directory.
+
+## Coding practices
+
+### Guidelines for ARCHITECTURE
+
+#### CLEAN_ARCHITECTURE
+
+- Strictly separate code into layers: entities, use cases, interfaces, and frameworks
+- Ensure dependencies point inward, with inner layers having no knowledge of outer layers
+- Implement domain entities that encapsulate {{business_rules}} without framework dependencies
+- Use interfaces (ports) and implementations (adapters) to isolate external dependencies
+- Create use cases that orchestrate entity interactions for specific business operations
+- Implement mappers to transform data between layers to maintain separation of concerns
+
+### Guidelines for clean code
+
+- Use feedback from linters to improve the code when making changes.
+- Prioritize error handling and edge cases.
+- Handle errors and edge cases at the beginning of functions.
+- Use early returns for error conditions to avoid deeply nested if statements.
+- Place the happy path last in the function for improved readability.
+- Avoid unnecessary else statements; use if-return pattern instead.
+- Use guard clauses to handle preconditions and invalid states early.
+- Implement proper error logging and user-friendly error messages.
+- Consider using custom error types or error factories for consistent error handling.
+
+### Guidelines for VERSION_CONTROL
+
+#### GIT
+
+- Use conventional commits to create meaningful commit messages
+- Use feature branches with descriptive names following {{branch_naming_convention}}
+- Write meaningful commit messages that explain why changes were made, not just what
+- Keep commits focused on single logical changes to facilitate code review and bisection
+- Use interactive rebase to clean up history before merging feature branches
+- Leverage git hooks to enforce code quality checks before commits and pushes
+
+#### CONVENTIONAL_COMMITS
+
+- Follow the format: type(scope): description for all commit messages
+- Use consistent types (feat, fix, docs, style, refactor, test, chore) across the project
+- Define clear scopes based on {{project_modules}} to indicate affected areas
+- Include issue references in commit messages to link changes to requirements
+- Use breaking change footer (!: or BREAKING CHANGE:) to clearly mark incompatible changes
+- Configure commitlint to automatically enforce conventional commit format
