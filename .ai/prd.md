@@ -1,7 +1,7 @@
 # Dokument wymagań produktu (PRD) – Eventivus
 
 ## 1. Przegląd produktu
-Eventivus to narzędzie webowe zaprojektowane w celu ułatwienia i przyspieszenia procesu planowania oraz organizacji imprez firmowych. Dzięki dostarczeniu prostego sposobu, w jaki pracownicy mogą proponować i głosować na potencjalne terminy, usprawnia komunikację i minimalizuje konieczność ręcznej koordynacji. Aplikacja oferuje dwa tryby tworzenia wydarzeń: "Rejestracja" (rejestracja na jeden potwierdzony termin) oraz "Planowanie" (planowanie z wieloma proponowanymi terminami).
+Eventivus to narzędzie webowe zaprojektowane w celu ułatwienia i przyspieszenia procesu planowania oraz organizacji imprez firmowych. Dzięki dostarczeniu prostego sposobu, w jaki organizatorzy wydarzeń mogą proponować potencjalne terminy a pracownicy na nie głosować, usprawnia komunikację i minimalizuje konieczność ręcznej koordynacji. Aplikacja oferuje dwa tryby tworzenia wydarzeń: "Rejestracja" (rejestracja na jeden potwierdzony termin) oraz "Planowanie" (planowanie z wieloma proponowanymi terminami).
 
 Kluczowe cechy:
 - Prosty system kont użytkowników.
@@ -13,6 +13,7 @@ Kluczowe cechy:
 Organizacja wydarzeń dla pracowników firmy może być czasochłonna i podatna na błędy komunikacyjne, zwłaszcza przy ustalaniu terminu. Pracownicy często mają różne preferencje dotyczące harmonogramu, a zbieranie opinii za pomocą e-maili lub komunikatorów staje się bardzo uciążliwe. Eventivus rozwiązuje ten problem poprzez:
 - Prezentowanie pracownikom wielu potencjalnych terminów wydarzenia.
 - Umożliwienie rejestracji na istniejące wydarzenia lub głosowania na preferowane terminy wydarzeń w przyszłości.
+- Głosowanie polega na oznaczeniu przy proponowanym terminie jednej z trzech opcji: "Dostępny", "Może" lub "Niedostępny"
 - Automatyczne obliczanie najlepszego terminu (lub terminów) na podstawie największej liczby dostępnych pracowników, co redukuje konieczność wielokrotnej komunikacji.
 
 ## 3. Wymagania funkcjonalne
@@ -163,7 +164,7 @@ Organizacja wydarzeń dla pracowników firmy może być czasochłonna i podatna 
 
 ### US-014: Automatyczne przeniesienie głosów z planowania do rejestracji
 - Tytuł: Automatyczne przeniesienie głosów z planowania do rejestracji
-- Opis: Jako system, po zatwierdzeniu finalnego terminu w trybie planowania, wszyscy uczestnicy, którzy głosowali na ten termin, są automatycznie rejestrowani.
+- Opis: Jako system, po zatwierdzeniu finalnego terminu w trybie planowania, wszyscy uczestnicy, którzy głosowali na ten termin (Dostępny lub Może), są automatycznie rejestrowani.
 - Kryteria akceptacji:
   1. Tylko głosy odpowiadające wybranemu terminowi są przenoszone do rejestracji.
   2. Operacja wykonuje się natychmiast po zatwierdzeniu terminu.
@@ -209,7 +210,7 @@ Organizacja wydarzeń dla pracowników firmy może być czasochłonna i podatna 
 
 ### US-020: Wybór wielu preferowanych terminów
 - Tytuł: Wybór wielu preferowanych terminów
-- Opis: Jako użytkownik, który otrzymał link do wydarzenia typu "Planowanie", mogę zaznaczyć kilka terminów, które odpowiadają mojej dostępności.
+- Opis: Jako użytkownik, który otrzymał link do wydarzenia typu "Planowanie", mogę zaznaczyć kilka terminów, które odpowiadają mojej dostępności. Dla każdego z dostępnych terminów zaznaczam jedną z trzech opcji: "Dostępny", "Może" lub "Niedostępny"
 - Kryteria akceptacji:
   1. Użytkownik może zaznaczyć więcej niż jeden termin/czas.
   2. Głosy są zapisywane i mogą być edytowane do momentu zamknięcia planowania.
